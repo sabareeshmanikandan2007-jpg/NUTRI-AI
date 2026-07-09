@@ -1,0 +1,72 @@
+:root {
+  --site-max-width: 1300px;
+  --site-padding: clamp(16px, 3vw, 28px);
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.site-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.site-container {
+  width: min(100%, var(--site-max-width));
+  margin-inline: auto;
+  padding-inline: var(--site-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-main {
+  width: min(100%, var(--site-max-width));
+  margin-inline: auto;
+  padding-inline: var(--site-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.site-main > section {
+  width: 100%;
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.site-main > section > div:first-child {
+  width: 100%;
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --site-padding: 14px;
+  }
+
+  .site-main,
+  .site-container {
+    width: 100%;
+  }
+}
