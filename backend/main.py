@@ -5,9 +5,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# Load .env FIRST — before any other backend module is imported,
-# so os.getenv() calls in helpers.py, diet.py, etc. see the real values.
-load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
+# Load from root .env (single env file for all services).
+# Falls back to backend/.env for backwards compatibility.
+_root_env    = Path(__file__).resolve().parent.parent / ".env"
+_backend_env = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=_root_env if _root_env.exists() else _backend_env)
 
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware

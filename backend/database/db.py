@@ -9,8 +9,11 @@ from pymongo.errors import ServerSelectionTimeoutError, ConnectionFailure
 
 logger = logging.getLogger(__name__)
 
-# Load backend/.env regardless of where the process is started from.
-load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / ".env")
+# Load from root .env (one single env file for all services).
+# Falls back to backend/.env for backwards compatibility.
+_root_env = Path(__file__).resolve().parents[2] / ".env"
+_backend_env = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(dotenv_path=_root_env if _root_env.exists() else _backend_env)
 
 MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017/")
 MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "ai_diet_planner")

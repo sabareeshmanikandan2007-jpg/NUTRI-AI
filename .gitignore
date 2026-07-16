@@ -14,14 +14,9 @@ dist-ssr/
 .cache/
 
 # ── Environment / Secrets ─────────────────────────────────────────────────────
-# Never commit real secrets — use the .env.example files instead
+# Never commit the real .env — use .env.example instead
 .env
-.env.*
 !.env.example
-backend/.env
-config/environment/server.env
-!config/environment/.env.example
-!config/environment/server.env.example
 
 # ── Logs ─────────────────────────────────────────────────────────────────────
 *.log

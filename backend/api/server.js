@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 
-dotenv.config({ path: fileURLToPath(new URL('../../config/environment/server.env', import.meta.url)) });
+dotenv.config({ path: fileURLToPath(new URL('../../.env', import.meta.url)) });
 
 const app = express();
 const PORT = process.env.PORT || 8787;
