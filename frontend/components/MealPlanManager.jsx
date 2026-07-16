@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown, FaChevronUp, FaMagic, FaSave, FaCheck } from 'react-icons/fa';
+import { apiFetch } from '../scripts/api';
 
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -10,14 +11,12 @@ export default function MealPlanManager({ goal = 'maintain', calories, onSavePla
   const [expandedDay, setExpandedDay] = useState(days[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1]);
   const [saveStatus, setSaveStatus] = useState(null);
 
-  // Load existing plan from backend if available
   useEffect(() => {
     const fetchPlan = async () => {
       try {
         const token = localStorage.getItem('nutriai-auth-token');
         if (!token) return;
-
-        const response = await fetch('/api/meal-plan/stored', {
+        const response = await apiFetch('/api/meal-plan/stored', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -38,7 +37,7 @@ export default function MealPlanManager({ goal = 'maintain', calories, onSavePla
     setIsGenerating(true);
     try {
       const g = goal.toLowerCase().replace(' ', '_');
-      const response = await fetch(`/api/meal-plan?goal=${g}&calories=${calories}`);
+      const response = await apiFetch(`/api/meal-plan?goal=${g}&calories=${calories}`);
       if (response.ok) {
         const data = await response.json();
         // The API returns a 7-day plan in a 'days' array
@@ -76,7 +75,7 @@ export default function MealPlanManager({ goal = 'maintain', calories, onSavePla
     setSaveStatus('saving');
     try {
       const token = localStorage.getItem('nutriai-auth-token');
-      const response = await fetch('/api/meal-plan/store', {
+      const response = await apiFetch('/api/meal-plan/store', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiSend, FiX, FiMic, FiRefreshCw } from 'react-icons/fi';
 import { BsChatDotsFill } from 'react-icons/bs';
 import { GiLeafSwirl } from 'react-icons/gi';
+import { apiFetch } from '../scripts/api';
 
 const INITIAL_MESSAGES = [
   {
@@ -22,7 +23,7 @@ const QUICK_REPLIES = [
 
 async function getAIResponse(text) {
   try {
-    const res = await fetch('/api/chat', {
+    const res = await apiFetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text }),

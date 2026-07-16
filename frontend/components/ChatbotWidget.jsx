@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FiMessageCircle, FiSend, FiX } from 'react-icons/fi'
+import { apiFetch } from '../scripts/api'
 
 export default function ChatbotWidget({ profileComplete = true, onCompleteProfile }) {
   const [open, setOpen] = useState(false)
@@ -30,7 +31,7 @@ export default function ChatbotWidget({ profileComplete = true, onCompleteProfil
       const profileStr = localStorage.getItem('nutriai-profile')
       const profile = profileStr ? JSON.parse(profileStr) : null
 
-      const response = await fetch('/api/chat', {
+      const response = await apiFetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

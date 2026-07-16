@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaUtensils, FaDumbbell, FaBolt, FaCalendarAlt } from 'react-icons/fa'
+import { apiFetch } from '../scripts/api'
 
 export default function AIRecommendations() {
   const [plan, setPlan] = useState(null)
@@ -12,7 +13,7 @@ export default function AIRecommendations() {
       setLoading(true)
       setError('')
       const token = localStorage.getItem('nutriai-auth-token')
-      const response = await fetch('/api/diet/ai-weekly-plan', {
+      const response = await apiFetch('/api/diet/ai-weekly-plan', {
         headers: { Authorization: `Bearer ${token}` },
       })
       const result = await response.json()

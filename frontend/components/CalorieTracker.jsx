@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react'
 import BgDecor from './BgDecor'
 import { FiPlus, FiTrash2, FiSearch } from 'react-icons/fi'
+import { apiFetch } from '../scripts/api'
 
 export default function CalorieTracker() {
   const [search, setSearch] = useState('')
   const [log, setLog] = useState([])
   const GOAL = 2100
 
-  // Load meals from backend
   useEffect(() => {
     const loadMeals = async () => {
       try {
         const token = localStorage.getItem('nutriai-auth-token')
         if (!token) return
-
-        const response = await fetch('/api/food/daily-calories', {
+        const response = await apiFetch('/api/food/daily-calories', {
           headers: { 'Authorization': `Bearer ${token}` },
         })
 
@@ -42,7 +41,7 @@ export default function CalorieTracker() {
     }
 
     try {
-      const response = await fetch('/api/food/add-meal', {
+      const response = await apiFetch('/api/food/add-meal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

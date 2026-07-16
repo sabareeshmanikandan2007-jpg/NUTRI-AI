@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import ProfileLockPanel from './ProfileLockPanel'
+import { apiFetch } from '../scripts/api'
 
 // Different meal plans based on goals
 const mealPlansByGoal = {
